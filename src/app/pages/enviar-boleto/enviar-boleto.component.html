@@ -1,0 +1,154 @@
+<app-head
+  titulo="Enviar Boleto"
+  (voltar)="imovelId != null ? cancelar() : voltar()"
+></app-head>
+<section>
+  <div class="loading" *ngIf="loading">
+    <i class="fa-solid fa-spinner loading"></i>
+  </div>
+  <div class="aviso-container" *ngIf="imoveis.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <form #formBoleto="ngForm" (ngSubmit)="enviarBoleto(formBoleto)">
+    <div class="form-container">
+      <div
+        class="form-control"
+        *ngIf="
+          imovelId == null &&
+          unidadeId == null &&
+          !loading &&
+          imoveis.length > 0
+        "
+      >
+        <label for="predio" class="title-form"
+          >Selecione o prédio do morador:</label
+        >
+        <select
+          id="imovelId"
+          name="imovelId"
+          [(ngModel)]="imovelId"
+          (change)="buscarUnidades()"
+        >
+          <option [ngValue]="null" disabled selected>
+            Selecione um imóvel:
+          </option>
+          <option *ngFor="let imovel of imoveis" [ngValue]="imovel.id">
+            {{ imovel.nomePredio }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="aviso-container"
+        *ngIf="unidades.length == 0 && !loading && unidadeId != null"
+      >
+        <ng-container>
+          <small class="aviso title-form"
+            >Esse imóvel não possui unidades cadastradas</small
+          >
+          <a [routerLink]="['/dashboard/cadastrar-unidade']" class="text-link"
+            >Cadastrar unidade</a
+          >
+        </ng-container>
+      </div>
+      <div
+        class="form-control"
+        *ngIf="
+          imovelId != null &&
+          unidadeId == null &&
+          !loading &&
+          unidades.length > 0
+        "
+      >
+        <label for="unidade" class="title-form"
+          >Selecione a unidade do morador:</label
+        >
+        <select
+          id="unidadeId"
+          name="unidadeId"
+          [(ngModel)]="unidadeId"
+          (change)="buscarMorador()"
+        >
+          <option [ngValue]="null" disabled selected>
+            Selecione uma unidade:
+          </option>
+          <option *ngFor="let unidade of unidades" [ngValue]="unidade.id">
+            {{ unidade.numeroUnidade }}
+          </option>
+        </select>
+        <div
+          class="aviso-container"
+          *ngIf="imovelId != null && unidades.length == 0"
+        >
+          <ng-container>
+            <small class="aviso title-form"
+              >Esse imóvel não possui unidades vazias cadastradas</small
+            >
+            <a [routerLink]="['/cadastrar-unidade']" class="text-link"
+              >Cadastrar nova unidade</a
+            >
+          </ng-container>
+        </div>
+      </div>
+      <div
+        class="form-control"
+        *ngIf="
+          imovelId != null && unidadeId != null && moradorId == null && !loading
+        "
+      >
+        <label for="morador" class="title-form"
+          >Selecione o(a) morador(a):</label
+        >
+        <select
+          name="morador"
+          id="moradorId"
+          name="moradorId"
+          [(ngModel)]="moradorId"
+        >
+          <option value="{{ moradorNome }}">{{ moradorNome }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-control" *ngIf="moradorId != null">
+      <label for="morador" class="title-form">Morador selecionado:</label>
+      <input
+        type="text"
+        id="morador"
+        name="morador"
+        value="{{ moradorNome }}"
+        readonly
+      />
+    </div>
+    <div class="form-container" *ngIf="moradorId != null && !loading">
+      <div class="form-control">
+        <label for="mesPagamento" class="title-form"
+          >Digite o valor do boleto</label
+        >
+        <input
+          type="number"
+          name="valorBoleto"
+          value="700"
+          placeholder="Digite o valor do aluguel..."
+          [(ngModel)]="valorBoleto"
+        />
+      </div>
+    </div>
+    <div class="form-container" *ngIf="moradorId != null && !loading">
+      <div class="form-control">
+        <app-botao-login texto="Enviar"></app-botao-login>
+      </div>
+    </div>
+  </form>
+  <app-modal
+    *ngIf="mostrarModal"
+    titulo="{{ tituloMensagem }}"
+    mensagem="{{ modalMensagem }}"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>

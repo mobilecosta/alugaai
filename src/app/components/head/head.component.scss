@@ -1,0 +1,75 @@
+// @import "../../../../src/styles.scss";
+// @import "./menu/menu.component.scss";
+@use "../../../../src/styles.scss" as *;
+@use "./menu/menu.component.scss" as *;
+
+header {
+  min-width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  z-index: 9998;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .container-button-notification {
+    position: relative;
+    background-color: $color-principal;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+    font-family: $links;
+    cursor: pointer;
+  }
+
+  i {
+    color: $color-principal;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    h4 {
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    color: $color-principal;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    background-color: #6650a434;
+    border-radius: 5px;
+    width: 80%;
+  }
+}

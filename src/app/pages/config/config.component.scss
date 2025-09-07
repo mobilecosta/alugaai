@@ -1,0 +1,64 @@
+// @import "../../../styles.scss";
+@use "../../../styles.scss" as *;
+
+section {
+  padding: 1rem;
+
+  .form-border {
+    border-top: solid 1px $color-principal-opacity;
+
+    small {
+      color: $color-principal;
+    }
+  }
+
+  .form-border:nth-child(2) {
+    margin-top: 2rem;
+  }
+
+  button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: $color-principal;
+    cursor: pointer;
+  }
+}
+
+.form-control {
+  width: 100%;
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+
+    .sufix {
+      position: absolute;
+      right: 0.5rem;
+      top: 1rem;
+      color: #fff;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+
+    small {
+      align-self: flex-end;
+    }
+
+    .container-label {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+}

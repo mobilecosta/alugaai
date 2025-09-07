@@ -1,0 +1,61 @@
+@use "../../../../src/styles.scss" as *;
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  min-height: 75vh;
+  width: 100vw;
+  padding: 1rem;
+  gap: 1rem;
+
+  .total {
+    display: flex;
+    flex-direction: column;
+    color: $color-principal;
+  }
+
+  .unidades-container,
+  .estatisticas-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 1rem;
+
+    .alugadas {
+      color: $alugado;
+    }
+
+    .vazias {
+      color: $desocupado;
+    }
+
+    .alugadas,
+    .vazias {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .total-unidades {
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+        align-items: center;
+        font-size: 1.2rem;
+
+        i {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .total-receber {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+}

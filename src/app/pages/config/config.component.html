@@ -1,0 +1,248 @@
+<app-head titulo="Configurações" (voltar)="voltar()"></app-head>
+
+<section>
+  <form #formconfig="ngForm" (ngSubmit)="enviarConfig(formconfig)">
+    <div class="form-border">
+      <small class="title-form">Configurações aplicativo</small>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="tempoContrato" class="title-form"
+            >Duração padrão do contrato:</label
+          >
+          <div class="container">
+            <input
+              type="number"
+              name="tempoContrato"
+              [(ngModel)]="tempoContratoPadrao"
+              id="tempoContrato"
+            />
+            <small class="title-form">Meses</small>
+          </div>
+        </div>
+        <div class="form-control">
+          <label for="vencimento" class="title-form">Vencimento padrão:</label>
+          <div class="container">
+            <input
+              type="number"
+              name="vencimento"
+              id="vencimento"
+              min="1"
+              max="31"
+              [(ngModel)]="vencimentoPadrao"
+              placeholder="Dia do mês"
+            />
+            <small class="title-form">Dia do mês</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <label for="notificacoes" class="title-form"
+            >Dias para ser lembrado do vencimento de aluguéis:</label
+          >
+          <input
+            type="number"
+            name="notificacoes"
+            min="1"
+            max="10"
+            placeholder="Padrão 5 dias"
+            [(ngModel)]="notificacoesPadrao"
+          />
+        </div>
+        <div class="form-control">
+          <label for="reajusteAnual" class="title-form"
+            >Reajuste anual de aluguel padrão:</label
+          >
+          <div class="input-container">
+            <input
+              type="number"
+              name="reajusteAnual"
+              id="reajusteAnual"
+              [(ngModel)]="reajusteAnual"
+            />
+            <span class="sufix">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <label class="title-form">Enviar boleto automático?</label>
+          <div class="container">
+            <div class="container-label">
+              <input
+                type="radio"
+                name="boletoAutomatico"
+                id="boletoAutomaticoSim"
+                [(ngModel)]="boletoAutomatico"
+                value="true"
+              />
+              <label for="boletoAutomaticoSim" class="title-form">Sim</label>
+            </div>
+            <div class="container-label">
+              <input
+                type="radio"
+                name="boletoAutomatico"
+                id="boletoAutomaticoNao"
+                [(ngModel)]="boletoAutomatico"
+                value="false"
+              />
+              <label for="boletoAutomaticoNao" class="title-form">Não</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label class="title-form">Desconto pagamento antecipado?</label>
+          <div class="container">
+            <div class="container-label">
+              <input
+                type="radio"
+                name="descontoPagamentoAntecipado"
+                id="descontoPagamentoAntecipadoSim"
+                value="true"
+                [(ngModel)]="descontoPagamentoAntecipado"
+                (change)="descontoAntecipado = true"
+              />
+              <label for="descontoPagamentoAntecipadoSim" class="title-form"
+                >Sim</label
+              >
+            </div>
+            <div class="container-label">
+              <input
+                type="radio"
+                name="descontoPagamentoAntecipado"
+                id="descontoPagamentoAntecipadoNao"
+                value="false"
+                [(ngModel)]="descontoPagamentoAntecipado"
+                (change)="descontoAntecipado = false"
+              />
+              <label for="descontoPagamentoAntecipadoNao" class="title-form"
+                >Não</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control" *ngIf="descontoAntecipado">
+        <label for="valorDescontoAntecipado" class="title-form"
+          >Valor de desconto pagamento antecipado:</label
+        >
+        <div class="input-container">
+          <input
+            type="number"
+            id="valorDescontoAntecipado"
+            name="valorDescontoAntecipado"
+            [(ngModel)]="valorDescontoAntecipado"
+          />
+          <span class="sufix">%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-border">
+      <small class="title-form">Configurações do usuário</small>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="nome" class="title-form">Nome:</label>
+          <input type="text" name="nome" [(ngModel)]="nome" />
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <label for="cep" class="title-form">CEP:</label>
+          <input
+            type="text"
+            name="cep"
+            (blur)="buscarCep(cep)"
+            [(ngModel)]="cep"
+            mask="00000-000"
+          />
+        </div>
+        <div class="form-control">
+          <label for="endereco" class="title-form">Endereço</label>
+          <input type="text" name="endereco" [(ngModel)]="endereco" />
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <label for="rg" class="title-form">RG:</label>
+          <input type="text" name="rg" [(ngModel)]="rg" mask="00.000.000-00" />
+        </div>
+        <div class="form-control">
+          <label for="cpf" class="title-form">CPF:</label>
+          <input
+            type="text"
+            name="cpf"
+            [(ngModel)]="cpf"
+            mask="000.000.000-00"
+          />
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <label for="banco" class="title-form">Banco:</label>
+          <select name="banco" [(ngModel)]="banco">
+            <option *ngFor="let banco of bancos" [value]="banco">
+              {{ banco }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <label for="agencia" class="title-form">Agência:</label>
+          <input type="text" name="agencia" [(ngModel)]="agencia" />
+        </div>
+        <div class="form-control">
+          <label for="conta" class="title-form">Conta:</label>
+          <input type="text" name="conta" [(ngModel)]="conta" />
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label for="pix" class="title-form">Pix:</label>
+        <input type="text" name="pix" [(ngModel)]="pix" />
+      </div>
+
+      <div class="form-container">
+        <div class="form-control">
+          <app-botao-login texto="Salvar"></app-botao-login>
+        </div>
+        <div class="form-control">
+          <app-botao-cancelar (cancelar)="voltar()"></app-botao-cancelar>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="form-container">
+    <div class="form-control">
+      <button class="text-link" (click)="alterarSenha = true">
+        Alterar senha
+      </button>
+    </div>
+    <div class="form-control">
+      <button class="text-link" (click)="alterarSenha = true">
+        Excluir Conta
+      </button>
+    </div>
+  </div>
+
+  <app-modal
+    *ngIf="mostrarModal"
+    [mensagem]="mensagemModal"
+    [titulo]="tituloModal"
+    (fechar)="fecharModal()"
+  ></app-modal>
+  <app-modal-senha
+    *ngIf="alterarSenha"
+    (fechar)="fecharModalSenha()"
+  ></app-modal-senha>
+</section>

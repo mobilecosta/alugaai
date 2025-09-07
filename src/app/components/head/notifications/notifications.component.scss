@@ -1,0 +1,54 @@
+// @import "../../../../../src/styles.scss";
+@use "../../../../../src/styles.scss" as *;
+
+.notifications {
+  position: absolute;
+  background-color: $color-background;
+  top: 4rem;
+  left: 0;
+  min-height: 95vh;
+  width: 100vw;
+  padding: 1rem;
+  box-shadow: 0px -8px 13px 2px rgba(0, 0, 0, 0.022);
+  z-index: 1;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+
+  nav {
+    height: 100%;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+
+    li {
+      margin-top: 1rem;
+      color: $color-principal;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      padding-bottom: 1rem;
+      border-bottom: solid 1px $color-principal-opacity;
+      margin-left: -2rem;
+      width: 100%;
+      cursor: pointer;
+
+      i {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+span {
+  text-align: center;
+  color: $color-principal;
+  width: 100%;
+}

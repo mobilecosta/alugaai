@@ -1,0 +1,97 @@
+<app-head
+  titulo="Reajustar aluguel"
+  (voltar)="imovelId ? cancelar() : voltar()"
+></app-head>
+
+<section>
+  <div class="loading" *ngIf="loading">
+    <i class="fa-solid fa-spinner loading"></i>
+  </div>
+  <div class="aviso-container" *ngIf="imoveis.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <form #reajustar="ngForm" (ngSubmit)="atualizarAluguel($event)">
+    <div class="form-control" *ngIf="!imovelId && !loading">
+      <label for="imovel" class="title-form">Selecione um imóvel:</label>
+      <select
+        name="imovel"
+        id="imovel"
+        [(ngModel)]="imovelId"
+        (change)="buscarUnidades()"
+      >
+        <option value="" disabled selected>Selecione um imóvel</option>
+        <option *ngFor="let imovel of imoveis" [value]="imovel.id">
+          {{ imovel.nomePredio }}
+        </option>
+      </select>
+    </div>
+    <div class="aviso-container" *ngIf="imovelId && unidades.length == 0">
+      <ng-container>
+        <small class="aviso title-form"
+          >Esse imóvel não possui unidades cadastradas!</small
+        >
+        <a [routerLink]="['/dashboard/cadastrar-unidade']" class="text-link"
+          >Cadastrar nova unidade</a
+        >
+      </ng-container>
+    </div>
+    <div
+      class="form-control"
+      *ngIf="imovelId && !unidadeId && unidades.length > 0 && !loading"
+    >
+      <label for="unidade" class="title-form">Selecione uma unidade:</label>
+      <select
+        name="unidade"
+        id="unidade"
+        [(ngModel)]="unidadeId"
+        (change)="definirUnidade()"
+      >
+        <option value="" disabled selected>Selecione uma unidade:</option>
+        <option *ngFor="let unidade of unidades" [value]="unidade.id">
+          {{ unidade.numeroUnidade }}
+        </option>
+      </select>
+    </div>
+    <div class="form-control" *ngIf="imovelId && unidadeId && !loading">
+      <label for="valorAluguelAtual" class="title-form"
+        >Valor aluguel atual:</label
+      >
+      <input
+        type="number"
+        name="valorAluguelAtual"
+        [ngModel]="valorAluguelAtual"
+        readonly
+      />
+    </div>
+    <div class="form-control" *ngIf="imovelId && unidadeId && !loading">
+      <label for="valorAluguel" class="title-form"
+        >Novo valor do aluguel:</label
+      >
+      <input type="number" name="valorAluguel" [(ngModel)]="valorAluguel" />
+    </div>
+    <div
+      class="form-container"
+      *ngIf="imovelId && unidadeId && unidadeSelecionada && !loading"
+    >
+      <div class="form-control">
+        <app-botao-login texto="Reajustar"></app-botao-login>
+      </div>
+      <div class="form-control">
+        <app-botao-cancelar (cancelar)="cancelar()"></app-botao-cancelar>
+      </div>
+    </div>
+  </form>
+</section>
+<app-modal
+  [mensagem]="mensagemModal"
+  [titulo]="tituloModal"
+  (fechar)="fecharModal()"
+  *ngIf="mostrarModal"
+></app-modal>

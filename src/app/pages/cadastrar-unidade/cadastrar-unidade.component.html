@@ -1,0 +1,286 @@
+<app-head
+  titulo="Cadastrar Unidade"
+  (voltar)="imovelId ? cancelar() : voltar()"
+></app-head>
+<section>
+  <div class="aviso-container" *ngIf="imoveis.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <form #formUnidade="ngForm" (ngSubmit)="enviarFormulario(formUnidade)">
+    <div class="form-control" *ngIf="!imovelId && imoveis.length > 0">
+      <label for="predio" class="title-form"
+        >Selecione o imóvel para adicionar a unidade:</label
+      >
+      <select
+        name="nomePredio"
+        id="predio"
+        (change)="selecionarImovel($event)"
+        [(ngModel)]="imovelId"
+      >
+        <option value="" disabled selected>Selecione um imóvel</option>
+        <option *ngFor="let imovel of imoveis" [value]="imovel.imovelId">
+          {{ imovel.nomePredio }}
+        </option>
+      </select>
+    </div>
+    <div class="show" *ngIf="imovelId && !loading">
+      <div class="form-container">
+        <div class="form-control">
+          <input type="hidden" name="imovelId" [(ngModel)]="imovelId" />
+          <label for="predio" class="title-form">Prédio</label>
+          <input
+            type="text"
+            aria-label="predio"
+            id="predio"
+            placeholder="Prédio azaléia"
+            name="nomePredio"
+            [(ngModel)]="nomePredio"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="enderecoUnidade" class="title-form"
+            >Endereço da unidade:
+          </label>
+          <input
+            type="text"
+            name="enderecoUnidade"
+            id="enderecoUnidade"
+            value="{{ enderecoUnidade }}"
+            [(ngModel)]="enderecoUnidade"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="numeroUnidade" class="title-form"
+            >Número da unidade:</label
+          >
+          <input
+            type="number"
+            aria-label="numeroUnidade"
+            id="numeroUnidade"
+            name="numeroUnidade"
+            placeholder="00"
+            [(ngModel)]="numeroUnidade"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="valorAluguel" class="title-form">Valor do aluguel:</label>
+          <input
+            type="number"
+            aria-label="valorAluguel"
+            id="valorAluguel"
+            name="valorAluguel"
+            placeholder="Valor aluguel"
+            [(ngModel)]="valorAluguel"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="comodos" class="title-form">Cômodos:</label>
+          <input
+            type="number"
+            name="comodos"
+            [(ngModel)]="comodos"
+            placeholder="Nº de Cômodos"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="instalacaoLuz" class="title-form">Instalação luz:</label>
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="12"
+            name="instalacaoLuz"
+            id="instalacaoLuz"
+            pattern="[0-9]*"
+            placeholder="Apenas números"
+            [(ngModel)]="instalacaoLuz"
+          />
+        </div>
+        <div class="form-control">
+          <label for="instalacaoAgua" class="title-form"
+            >Instalação água:</label
+          >
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="12"
+            name="instalacaoAgua"
+            id="instalacaoAgua"
+            pattern="[0-9]*"
+            placeholder="Apenas números"
+            [(ngModel)]="instalacaoAgua"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="status" class="title-form">Status da unidade: </label>
+          <div class="input-radio-container">
+            <div class="radio-container">
+              <input
+                type="radio"
+                name="ocupada"
+                [(ngModel)]="ocupada"
+                [value]="false"
+                id="vazio"
+              />
+              <label for="vazio" class="title-form">Vazia</label>
+            </div>
+            <div class="radio-container">
+              <input
+                type="radio"
+                name="ocupada"
+                [(ngModel)]="ocupada"
+                [value]="true"
+                id="ocupada"
+              />
+              <label for="ocupada" class="title-form">Ocupada</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-morador" *ngIf="ocupada">
+        <div class="form-container">
+          <div class="form-control">
+            <label for="morador" class="title-form">Nome do morador:</label>
+            <input
+              type="text"
+              name="morador"
+              id="morador"
+              [(ngModel)]="morador"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="form-control">
+            <label for="dataNascimento" class="title-form"
+              >Data de Nascimento:</label
+            >
+            <input
+              type="date"
+              name="dataNascimento"
+              id="dataNascimento"
+              required
+              [(ngModel)]="dataNascimento"
+            />
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="form-control">
+            <label for="rg" class="title-form">RG do morador:</label>
+            <input
+              type="string"
+              name="rg"
+              id="rg"
+              maxlength="9"
+              [(ngModel)]="rg"
+            />
+          </div>
+          <div class="form-control">
+            <label for="cpf" class="title-form">Digite o CPF do morador:</label>
+            <input
+              type="string"
+              name="cpf"
+              id="cpf"
+              mask="000.000.000-00"
+              [(ngModel)]="cpf"
+            />
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="form-control">
+            <label for="dataInicioContrato" class="title-form"
+              >Início contrato:</label
+            >
+            <input
+              type="date"
+              name="dataInicioContrato"
+              id="dataInicioContrato"
+              [(ngModel)]="dataInicioContrato"
+              required
+            />
+          </div>
+          <div class="form-control">
+            <label for="dataFimContrato" class="title-form"
+              >Fim contrato:</label
+            >
+            <input
+              type="date"
+              name="dataFimContrato"
+              id="dataFimContrato"
+              [(ngModel)]="dataFimContrato"
+            />
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="form-control">
+            <label for="diaVencimento" class="title-form"
+              >Dia de vencimento:</label
+            >
+            <input
+              type="number"
+              name="diaVencimento"
+              id="diaVencimento"
+              [(ngModel)]="diaVencimento"
+            />
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="form-control">
+            <label for="telefone" class="title-form">Telefone:</label>
+            <input
+              type="tel"
+              name="telefone"
+              mask="(00) 9 0000-0000"
+              id="telefone"
+              [(ngModel)]="telefone"
+              required
+            />
+          </div>
+          <div class="form-control">
+            <label for="email" class="title-form">E-mail:</label>
+            <input type="email" name="email" id="email" [(ngModel)]="email" />
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <app-botao-login texto="Cadastrar"></app-botao-login>
+        </div>
+        <div class="form-control">
+          <app-botao-cancelar (cancelar)="cancelar()"></app-botao-cancelar>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="background-loading" *ngIf="loading">
+    <div class="modal-loading">
+      <div class="loading" *ngIf="loading">
+        <i class="fa-solid fa-spinner loading"></i>
+      </div>
+    </div>
+  </div>
+  <app-modal
+    *ngIf="mostrarModal"
+    mensagem="{{ mensagemModal }}"
+    titulo="{{ tituloModal }}"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>

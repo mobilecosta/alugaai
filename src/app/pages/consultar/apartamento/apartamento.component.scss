@@ -1,0 +1,232 @@
+// @import "../../../../../src/styles.scss";
+@use "../../../../../src/styles.scss" as *;
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 90vh;
+  padding: 1rem;
+  width: 100vw;
+  margin-top: 2rem;
+}
+
+.top-container,
+.morador-container,
+.unidade-container,
+.actions-container {
+  margin-top: 1rem;
+  border-top: solid 1px $color-principal-opacity;
+  padding: 0.5rem 0 0 0;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  .first-letter {
+    background-color: $color-principal;
+    padding: 0.8rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-principal-background;
+  }
+
+  .titles {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: $color-principal;
+
+    small {
+      margin-top: 1rem;
+    }
+  }
+
+  button {
+    background-color: $color-principal;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: #fff;
+  }
+
+  .renovar-contrato {
+    background-color: transparent;
+    color: $color-principal;
+    font-weight: 700;
+  }
+}
+
+small {
+  font-family: $links;
+}
+
+.dados-morador,
+.dados-unidade {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  gap: 0.2rem;
+  color: $color-principal;
+  position: relative;
+
+  .telefone-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .buttons-container {
+      display: flex;
+      gap: 1rem;
+      position: absolute;
+      right: 0;
+      bottom: 1rem;
+    }
+
+    button {
+      font-size: 1rem;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  button {
+    background-color: $color-principal;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: #fff;
+  }
+}
+
+.historico-moradores {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+
+  button {
+    background-color: transparent;
+    color: $color-principal;
+    outline: none;
+    border: none;
+  }
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 1rem;
+
+  .action-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 15px;
+    }
+
+    button {
+      background-color: $color-principal;
+      outline: none;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1rem;
+      color: #fff;
+    }
+  }
+}
+
+.unidade-vazia {
+  margin-top: 8rem;
+  position: relative;
+}
+
+.esvaziar-unidade {
+  margin-top: 4rem;
+  width: 100vw;
+  button {
+    text-align: center;
+    margin-top: 5rem;
+    position: relative;
+    width: 100%;
+  }
+}
+
+@media (min-width: 767px) {
+  section {
+    padding: 1rem 4rem;
+  }
+
+  .top-container {
+    button {
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: $color-hover;
+      }
+    }
+  }
+
+  .dados-morador,
+  .dados-unidade {
+    .telefone-container {
+      button {
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+          background-color: $color-hover;
+        }
+      }
+    }
+  }
+  .historico-moradores {
+    button {
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        color: $color-hover;
+      }
+    }
+  }
+
+  .actions-container {
+    padding: 1rem 4rem;
+
+    .action-button {
+      button {
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          background-color: $color-hover;
+        }
+      }
+    }
+  }
+}

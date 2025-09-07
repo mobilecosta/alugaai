@@ -1,0 +1,23 @@
+.form-control {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  background-color: #ece0f4;
+  $desocupado: #8f8f8f;
+  color: #6750a4;
+  border-radius: 35px;
+
+  &::-webkit-input-placeholder {
+    color: #6750a4;
+  }
+}
+
+i {
+  position: absolute;
+  cursor: pointer;
+  right: 1.5rem;
+}

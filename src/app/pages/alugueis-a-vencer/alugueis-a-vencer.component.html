@@ -1,0 +1,66 @@
+<app-head
+  titulo="Alugueis a vencer"
+  (voltar)="imovelId ? cancelar() : voltar()"
+></app-head>
+<section *ngIf="!imovelId">
+  <div class="form-container">
+    <div class="form-control">
+      <label for="imoveis" class="title-form">Selecione um imóvel:</label>
+
+      <select
+        name="imoveis"
+        id="imoveis"
+        [(ngModel)]="imovelId"
+        (change)="filtrarVencimentos()"
+      >
+        <option *ngFor="let imovel of imoveis" [ngValue]="imovel.id">
+          {{ imovel.nomePredio }}
+        </option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section
+  id="alugueis-vencidos"
+  *ngIf="imovelId && alugueisFiltrados.length > 0"
+>
+  <div class="actions-container">
+    <app-search
+      (searchChange)="pesquisar($event)"
+      placeText="Pesquisar morador..."
+    ></app-search>
+    <div class="filters">
+      <button (click)="setFilter(7)" [ngClass]="{ active: filter == '7' }">
+        <span class="text-link">7 Dias</span>
+      </button>
+      <button (click)="setFilter(10)" [ngClass]="{ active: filter == '10' }">
+        <span class="text-link">10 Dias</span>
+      </button>
+      <button
+        (click)="setFilter('vencidos'); filtrarVencidos()"
+        [ngClass]="{ active: filter == 'vencidos' }"
+      >
+        <span class="text-link">Vencidos</span>
+      </button>
+    </div>
+  </div>
+  <div class="alugueis-container">
+    <div class="aluguel-container" *ngFor="let aluguel of alugueisFiltrados">
+      <div class="foto">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="dados-container">
+        <span>{{ aluguel.Moradore.nome.split(" ")[0] }}</span>
+        <span class="data">{{
+          aluguel.dataVencimento | date : "dd/MM/yyyy"
+        }}</span>
+        <span class="valor">{{ aluguel.valor | currency : "BRL" }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="text-link">Esse imóvel não possui aluguéis em atraso</span>
+</section>

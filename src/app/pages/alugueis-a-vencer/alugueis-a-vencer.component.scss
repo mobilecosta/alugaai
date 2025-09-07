@@ -1,0 +1,103 @@
+@use "../../../styles.scss" as *;
+
+section {
+  padding: 1rem;
+  margin-top: 2rem;
+  min-height: 75vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  color: $color-principal;
+}
+
+#alugueis-vencidos {
+  display: flex;
+  justify-content: flex-start;
+
+  .actions-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+
+    app-search {
+      width: 100%;
+    }
+  }
+}
+
+.filters {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: solid 1px $color-principal-opacity;
+  margin-top: 0.5rem;
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $desocupado;
+  }
+
+  .active {
+    border-bottom: solid 1px $color-principal-opacity;
+    color: $color-principal;
+  }
+}
+
+.alugueis-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.aluguel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.foto {
+  background-color: $color-principal;
+  color: #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dados-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  font-weight: 600;
+  font-family: $links;
+  color: $color-principal;
+
+  .data,
+  .valor {
+    font-size: 0.9rem;
+  }
+
+  .nome {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: center;
+    color: $color-principal;
+  }
+}

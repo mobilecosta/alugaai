@@ -1,0 +1,80 @@
+<app-head titulo="Registros de Pagamentos" (voltar)="voltar()"></app-head>
+<section>
+  <div class="loading" *ngIf="loading">
+    <i class="fa-solid fa-spinner loading"></i>
+  </div>
+  <h3 class="title-form">{{ moradorNome }}</h3>
+  <form action="">
+    <div class="form-control">
+      <select name="ano" id="ano" (change)="filtrar($event)">
+        <option disabled selected>Escolher ano</option>
+        <option *ngFor="let ano of intervaloAnos" [value]="ano">
+          {{ ano }}
+        </option>
+      </select>
+    </div>
+  </form>
+  <div
+    class="legendas-container"
+    *ngIf="pagamentoFiltrado.length > 0 && !loading"
+  >
+    <div class="legendas">
+      <div class="item">
+        <button><i class="fa-solid fa-message"></i></button>
+        <small>Enviar mensagem </small>
+      </div>
+      <div class="item">
+        <button><i class="fa-solid fa-check"></i></button>
+        <small>Registrar pagamento</small>
+      </div>
+    </div>
+  </div>
+  <table *ngIf="pagamentoFiltrado.length > 0">
+    <tr>
+      <th class="title-form">Data do Vencimento</th>
+      <th class="title-form">Data do Pagamento</th>
+      <th class="title-form">Valor</th>
+      <th class="title-form">Status</th>
+      <th class="title-form">Ação</th>
+    </tr>
+    <tbody>
+      <tr
+        *ngFor="let pagamento of pagamentoFiltrado"
+        [ngClass]="{
+          'status-pago': pagamento.status == 'Pago',
+          'status-pendente': pagamento.status == 'Pendente',
+          'status-atrasado': pagamento.status === 'Atrasado'
+        }"
+      >
+        <td>{{ pagamento.dataVencimento | date : "dd/MM" }}</td>
+        <td>{{ pagamento.dataPagamento | date : "dd/MM" }}</td>
+        <td>{{ pagamento.valor | currency : "BRL" }}</td>
+        <td>{{ pagamento.status }}</td>
+        <td>
+          <div class="buttons-container" *ngIf="pagamento.status != 'Pago'">
+            <div class="button-container">
+              <button (click)="ligar()">
+                <i class="fa-solid fa-message"></i>
+              </button>
+            </div>
+            <div class="button-container">
+              <button (click)="registrarPagamento(pagamento)">
+                <i class="fa-solid fa-check"></i>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="unidade-vazia" *ngIf="pagamentoFiltrado.length == 0 && !loading">
+    <h3 class="title-form">Sem registro de pagamentos</h3>
+    <i class="fa-regular fa-face-frown"></i>
+  </div>
+  <app-modal
+    [mensagem]="mensagemModal"
+    [titulo]="tituloModal"
+    (fechar)="fecharModal()"
+    *ngIf="mostrarModal"
+  ></app-modal>
+</section>

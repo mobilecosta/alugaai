@@ -1,0 +1,21 @@
+<div class="notifications">
+  <ul *ngIf="vencimentosProximos.length > 0">
+    <li
+      *ngFor="let notificacao of vencimentosProximos; let i = index"
+      (click)="removerNotificacao(i)"
+    >
+      <i class="fa-solid fa-money-check-dollar"></i>
+      <span class="text-list-stats">
+        <b class="text-link">{{ notificacao.tipo }}</b> do(a) morador(a)
+        <b class="text-link">{{ notificacao.nome }}</b>
+        vence nos próximos
+        <b class="text-link">
+          {{ diasAviso }} {{ diasAviso == 1 ? "dia" : "dias" }}!
+        </b>
+      </span>
+    </li>
+  </ul>
+  <span class="text-link" *ngIf="vencimentosProximos.length == 0">
+    Você não possui notificações
+  </span>
+</div>

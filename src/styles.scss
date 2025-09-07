@@ -1,0 +1,202 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+$color-principal: #6750a4;
+$color-principal-background: #f6f3ff;
+$color-principal-opacity: hsla(256, 34%, 48%, 0.2);
+$color-hover: #1e0665;
+$color-background: #ece0f4;
+$alugado: #1ea53b;
+$desocupado: #8f8f8f;
+$links: "Nunito", sans-serif;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-principal-background;
+  overflow-x: hidden;
+}
+
+section {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: $links;
+  color: $color-principal;
+}
+
+.sub-title {
+  font-family: $links;
+  color: $color-principal;
+}
+
+.title-form {
+  font-size: 1rem;
+  font-family: "Nunito", sans-serif;
+}
+
+.text-list-stats {
+  font-weight: 400;
+  font-family: $links;
+}
+
+.text-button-down {
+  font-family: $links;
+  font-weight: 800;
+  margin-top: 0.5rem;
+}
+
+.text-link {
+  font-family: $links;
+  font-weight: 800;
+}
+
+.nome-morador {
+  font-family: $links;
+  font-weight: 800;
+  color: $color-principal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
+.form-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0.5rem;
+  color: $color-principal;
+  margin-top: 1rem;
+  width: 100%;
+
+  label,
+  span {
+    margin: 0 0 0.5rem 0.5rem;
+    align-self: flex-start;
+    font-weight: 700;
+  }
+
+  input,
+  select {
+    background-color: $color-principal;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    color: #fff;
+    border-radius: 0.5rem;
+    width: 100%;
+
+    &::-webkit-input-placeholder {
+      color: #fff;
+    }
+  }
+}
+
+.form-control {
+  margin-top: 0rem;
+  width: 100%;
+
+  label {
+    margin: 0 0 0.5rem 0.5rem;
+    align-self: flex-start;
+    font-weight: 700;
+  }
+
+  input,
+  select {
+    background-color: $color-principal;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    color: #fff;
+    border-radius: 0.5rem;
+    width: 100%;
+    position: relative;
+
+    &::-webkit-input-placeholder {
+      color: #fff;
+    }
+  }
+}
+
+.aviso-container {
+  display: flex;
+  flex-direction: column;
+  color: $color-principal;
+  text-align: center;
+  gap: 0.8rem;
+}
+
+a {
+  text-decoration: none;
+  color: $color-principal;
+}
+
+.loading {
+  font-size: 3rem;
+  color: $color-principal;
+  animation: girarLoading 5s linear infinite;
+}
+
+.background-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-loading {
+    display: flex;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.unidade-vazia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: $desocupado;
+  width: 100%;
+
+  i {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@keyframes girarLoading {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

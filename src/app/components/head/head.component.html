@@ -1,0 +1,27 @@
+<header>
+  <div
+    class="container-button-notification"
+    (click)="toggleNotification()"
+    *ngIf="!mostrarBotaoVoltar"
+  >
+    <span class="text-link">{{ totalNotificacoes }}</span>
+  </div>
+  <i
+    *ngIf="mostrarBotaoVoltar"
+    class="fa-solid fa-circle-arrow-left"
+    (click)="emitirVoltar()"
+  ></i>
+  <div class="center">
+    <h3 class="title">{{ titulo }}</h3>
+  </div>
+  <button (click)="toggleMenu()" *ngIf="mostrarMenu">
+    <i [ngClass]="menuOpen ? 'fas fa-xmark' : 'fas fa-bars'"></i>
+  </button>
+</header>
+<app-notifications
+  [@menuAnimacao]="notificationOpen ? 'aberto' : 'fechado'"
+  [vencimentosProximos]="notificacoes"
+  [diasAviso]="diasAviso"
+  (fechar)="removerNotificacao($event)"
+></app-notifications>
+<app-menu [@menuAnimacao]="menuOpen ? 'aberto' : 'fechado'"></app-menu>

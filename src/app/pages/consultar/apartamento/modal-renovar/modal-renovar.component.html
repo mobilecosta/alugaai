@@ -1,0 +1,42 @@
+<section>
+  <div class="background">
+    <div class="modal">
+      <i class="fa-solid fa-xmark" (click)="fecharModal()"></i>
+      <h3 class="text-link">Renovar contrato</h3>
+      <form
+        #renovarContrato="ngForm"
+        (ngSubmit)="atualizarContrato(renovarContrato)"
+      >
+        <div class="form-control">
+          <label for="inicioContrato" class="title-form"
+            >Inicío contrato:</label
+          >
+          <input
+            type="date"
+            name="inicioContrato"
+            [(ngModel)]="inicioContrato"
+          />
+        </div>
+        <div class="form-control">
+          <label for="fimContrato" class="title-form">Fim contrato:</label>
+          <input type="date" name="fimContrato" [(ngModel)]="fimContrato" />
+        </div>
+        <div class="form-container">
+          <div class="form-control">
+            <app-botao-login texto="Renovar"></app-botao-login>
+          </div>
+          <div class="form-control">
+            <app-botao-cancelar (cancelar)="cancelar()"></app-botao-cancelar>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<app-modal
+  [mensagem]="mensagemModal"
+  [titulo]="tituloModal"
+  (fechar)="fecharModalMensagem()"
+  *ngIf="mostrarModal"
+></app-modal>

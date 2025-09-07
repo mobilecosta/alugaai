@@ -1,0 +1,30 @@
+@use "../../../../../styles.scss" as *;
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    background-color: #fff;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    color: $color-principal;
+    border-radius: 25px;
+
+    i {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+    }
+  }
+}

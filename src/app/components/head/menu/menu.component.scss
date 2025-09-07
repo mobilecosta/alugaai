@@ -1,0 +1,35 @@
+// @import "../../../../../src/styles.scss";
+@use "../../../../../src/styles.scss" as *;
+
+.menu {
+  position: fixed;
+  background-color: $color-background;
+  top: 3.4rem;
+  right: 0;
+  height: 95vh;
+  padding: 1rem;
+  z-index: 9999;
+  width: 100vw;
+
+  nav {
+    height: 100%;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    margin-top: -1rem;
+
+    li {
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        text-decoration: none;
+      }
+    }
+  }
+}

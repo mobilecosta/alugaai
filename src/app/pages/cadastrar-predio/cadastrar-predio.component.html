@@ -1,0 +1,125 @@
+<app-head titulo="Cadastrar Imóvel" (voltar)="voltar()"></app-head>
+<section>
+  <form #formPredio="ngForm" (ngSubmit)="enviarFormulario(formPredio)">
+    <div class="form-container">
+      <div class="form-control">
+        <label for="nomePredio" class="title-form">Nome do imóvel:</label>
+        <input
+          type="text"
+          aria-label="nomePredio"
+          id="nomePredio"
+          name="nomePredio"
+          [(ngModel)]="nomePredio"
+          placeholder="Ex: Prédio Azaleia"
+        />
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="quantidadeUnidades" class="title-form"
+          >Quantidade de unidades</label
+        >
+        <input
+          type="number"
+          aria-label="quantidadeUnidades"
+          name="quantidadeUnidades"
+          id="quantidadeUnidades"
+          [(ngModel)]="quantidadeUnidades"
+          placeholder="00"
+        />
+      </div>
+      <div class="form-control" *ngIf="quantidadeUnidades">
+        <label for="valorAluguel" class="title-form"
+          >Valor padrão de aluguel:</label
+        >
+        <input
+          *ngIf="quantidadeUnidades > 0"
+          type="number"
+          name="valorAluguel"
+          id="valorAluguel"
+          [(ngModel)]="valorAluguel"
+          required
+        />
+      </div>
+      <div class="form-control" *ngIf="quantidadeUnidades">
+        <label for="comodos" class="title-form">Cômodos:</label>
+        <input type="number" name="comodos" id="" [(ngModel)]="comodos" />
+      </div>
+    </div>
+    <div class="form-control">
+      <label for="cep" class="title-form">CEP</label>
+      <input
+        type="text"
+        aria-label="cep"
+        id="cep"
+        name="cep"
+        mask="00000-000"
+        [(ngModel)]="cep"
+        (blur)="buscarCep(cep)"
+        placeholder="00000-000"
+        maxlength="9"
+      />
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="estado" class="title-form">Estado: </label>
+        <select name="estado" id="estado" [(ngModel)]="estado">
+          <option value="SP">SP</option>
+        </select>
+      </div>
+      <div class="form-control">
+        <label for="cidade" class="title-form">Cidade:</label>
+        <input
+          type="text"
+          aria-label="cidade"
+          id="cidade"
+          name="cidade"
+          [(ngModel)]="cidade"
+          placeholder="Digite a cidade"
+        />
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="bairro" class="title-form">Bairro:</label>
+        <input
+          type="text"
+          aria-label="bairro"
+          name="bairro"
+          id="bairro"
+          [(ngModel)]="bairro"
+          placeholder="Digite o bairro"
+        />
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="rua" class="title-form">Rua:</label>
+        <input
+          type="text"
+          aria-label="rua"
+          name="rua"
+          id="rua"
+          [(ngModel)]="rua"
+          placeholder="Digite a rua"
+        />
+      </div>
+    </div>
+    <div class="form-control">
+      <app-botao-login texto="Cadastrar"></app-botao-login>
+    </div>
+  </form>
+  <div class="background-loading" *ngIf="loading">
+    <div class="modal-loading">
+      <div class="loading" *ngIf="loading">
+        <i class="fa-solid fa-spinner loading"></i>
+      </div>
+    </div>
+  </div>
+  <app-modal
+    *ngIf="mostrarModal"
+    mensagem="{{ mensagemModal }}"
+    titulo="{{ tituloModal }}"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>

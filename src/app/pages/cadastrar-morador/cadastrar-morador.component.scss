@@ -1,0 +1,59 @@
+@use "../../../styles.scss" as *;
+@use "../../components/head/head.component.scss" as *;
+
+.form-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+section {
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 75vh;
+}
+
+.form-control {
+  margin-top: 0rem;
+  width: 100%;
+
+  label {
+    margin: 0 0 0.5rem 0.5rem;
+    align-self: flex-start;
+    font-weight: 700;
+  }
+
+  input,
+  select {
+    background-color: $color-principal;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    color: #fff;
+    border-radius: 0.5rem;
+    width: 100%;
+    position: relative;
+
+    &::-webkit-input-placeholder {
+      color: #fff;
+    }
+  }
+
+  .input-radio-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .radio-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    label {
+      margin: 0 0.5rem;
+    }
+  }
+}

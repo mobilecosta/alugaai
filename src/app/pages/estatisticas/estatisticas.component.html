@@ -1,0 +1,61 @@
+<app-head (voltar)="voltar()" titulo="Estatísticas"></app-head>
+<section>
+  <div class="loading" *ngIf="loading">
+    <i class="fa-solid fa-spinner loading"></i>
+  </div>
+  <div class="aviso-container" *ngIf="unidades.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <div class="total">
+    <span class="text-link">{{ totalUnidades }} unidades cadastradas</span>
+    <small class="text-link">Receita total (alugadas + vazias): </small>
+    <span class="text-link">{{ total | currency : "BRL" }}</span>
+  </div>
+  <div class="unidades-container">
+    <div class="alugadas">
+      <div class="total-unidades">
+        <i class="fa-regular fa-face-smile"></i>
+        <small class="title-form" *ngIf="alugadas.length > 1"
+          >{{ alugadas.length }} unidades alugadas</small
+        >
+        <small class="title-form" *ngIf="alugadas.length == 1"
+          >{{ alugadas.length }} unidade alugada</small
+        >
+      </div>
+      <div class="total-receber">
+        <small class="text-link">Receita mensal de aluguéis:</small>
+        <span class="title-form">
+          + {{ totalAlugadas | currency : "BRL" }}</span
+        >
+      </div>
+    </div>
+    <div class="vazias">
+      <div class="total-unidades">
+        <i class="fa-regular fa-face-frown"></i>
+        <small class="title-form" *ngIf="vazias.length > 1"
+          >{{ vazias.length }} unidades vazias</small
+        >
+        <small class="title-form" *ngIf="vazias.length == 1"
+          >{{ vazias.length }} unidade vazia</small
+        >
+      </div>
+      <div class="total-receber">
+        <small class="text-link"> Receita perdida por unidades vazias: </small>
+        <span class="title-form"> - {{ totalVazias | currency : "BRL" }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="total">
+    <small class="title-form"
+      >Total recebido neste mês de <b> {{ mesAtualTexto }}</b></small
+    >
+    <span class="title-form">+ {{ valorRecebido | currency : "BRL" }}</span>
+  </div>
+</section>

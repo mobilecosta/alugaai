@@ -1,0 +1,168 @@
+<app-head
+  titulo="Editar unidade: {{ numeroUnidade }}"
+  (voltar)="voltar()"
+></app-head>
+<section>
+  <div class="unidade-vazia" *ngIf="moradorId == null">
+    <h3 class="title-form">Unidade vazia</h3>
+    <i class="fa-regular fa-face-frown"></i>
+  </div>
+  <form #formEditar="ngForm" (ngSubmit)="enviarFormulario(formEditar)">
+    <div class="form-border" *ngIf="moradorId != null">
+      <small class="title-form">Dados Morador</small>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="nomeMorador" class="title-form">Nome:</label>
+          <div class="container">
+            <input
+              type="text"
+              name="nomeMorador"
+              id="nomeMorador"
+              [value]="nomeMorador"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="rg" class="title-form">RG:</label>
+          <input type="text" name="rg" id="rg" [value]="rg" readonly />
+        </div>
+        <div class="form-control">
+          <label for="cpf" class="title-form">CPF:</label>
+          <input type="text" name="cpf" id="cpf" [value]="cpf" readonly />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="telefone" class="title-form">Telefone:</label>
+          <input
+            type="tel"
+            name="telefone"
+            id="telefone"
+            [(ngModel)]="telefone"
+          />
+        </div>
+        <div class="form-control">
+          <label for="email" class="title-form">E-mail:</label>
+          <input type="email" name="email" id="email" [(ngModel)]="email" />
+        </div>
+      </div>
+    </div>
+    <div class="form-border">
+      <small class="title-form" class="title-form">Dados da unidade</small>
+      <div class="form-container">
+        <div class="form-control" *ngIf="moradorId != null">
+          <label for="diaPagamento" class="title-form" class="title-form"
+            >Dia de vencimento:</label
+          >
+          <input
+            type="number"
+            name="diaPagamento"
+            id="diaPagamento"
+            [(ngModel)]="diaVencimento"
+          />
+        </div>
+        <div class="form-control">
+          <label for="valorAluguelAtual" class="title-form"
+            >Valor aluguel:</label
+          >
+          <input
+            type="number"
+            name="valorAluguelAtual"
+            id="valorAluguelAtual"
+            [(ngModel)]="valorAluguel"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="instalacaoLuz" class="title-form">Instalação luz:</label>
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="12"
+            name="instalacaoLuz"
+            id="instalacaoLuz"
+            pattern="[0-9]*"
+            [(ngModel)]="instalacaoLuz"
+          />
+        </div>
+        <div class="form-control">
+          <label for="instalacaoAgua" class="title-form"
+            >Instalação água:</label
+          >
+          <input
+            type="text"
+            inputmode="numeric"
+            maxlength="12"
+            name="instalacaoAgua"
+            id="instalacaoAgua"
+            pattern="[0-9]*"
+            [(ngModel)]="instalacaoAgua"
+          />
+        </div>
+      </div>
+      <div class="form-container" *ngIf="moradorId != null">
+        <div class="form-control">
+          <label for="dataInicioContrato" class="title-form"
+            >Inicio contrato:</label
+          >
+          <input
+            type="date"
+            name="dataInicioContrato"
+            id="dataInicioContrato"
+            [value]="dataInicioContrato"
+            readonly
+          />
+        </div>
+        <div class="form-control">
+          <label for="dataFimContrato" class="title-form"
+            >Previsão fim contrato:</label
+          >
+          <input
+            type="date"
+            name="dataFimContrato"
+            id="dataFimContrato"
+            [(ngModel)]="dataFimContrato"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <app-botao-login texto="Salvar"></app-botao-login>
+        </div>
+        <div class="form-control">
+          <app-botao-cancelar (cancelar)="voltar()"></app-botao-cancelar>
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control" *ngIf="moradorId != null">
+          <button
+            class="text-link excluir"
+            type="button"
+            (click)="deleteMorador()"
+          >
+            Excluir morador
+          </button>
+        </div>
+        <div class="form-control">
+          <button
+            type="button"
+            class="text-link excluir"
+            (click)="deleteUnidade()"
+          >
+            Excluir unidade
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-modal
+    *ngIf="mostrarModal"
+    [mensagem]="mensagemModal"
+    [titulo]="tituloModal"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>

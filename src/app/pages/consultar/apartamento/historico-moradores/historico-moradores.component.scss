@@ -1,0 +1,28 @@
+@use "../../../../../styles.scss" as *;
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  width: 100%;
+  margin-left: -1.5rem;
+  margin-top: 2rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    background-color: $color-background;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+}
+
+.vazio {
+  margin-top: 2rem;
+  text-align: center;
+  color: $color-principal;
+}

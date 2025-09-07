@@ -1,0 +1,79 @@
+@use "../../../../styles.scss" as *;
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    background-color: #fff;
+    padding: 2rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 35px;
+    position: relative;
+    color: $color-principal;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    .fa-xmark {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.2rem;
+      color: $color-principal;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      input {
+        width: 100%;
+      }
+
+      i {
+        position: absolute;
+        color: #fff;
+        right: 1rem;
+        z-index: 9999;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 767px) {
+  .background {
+    .modal {
+      width: 50%;
+
+      .fa-xmark {
+        cursor: pointer;
+      }
+
+      .input-container {
+        i {
+          transition: 0.2s;
+          &:hover {
+            color: $color-hover;
+          }
+        }
+      }
+    }
+  }
+}

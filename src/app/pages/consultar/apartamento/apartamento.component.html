@@ -1,0 +1,186 @@
+<app-head
+  [titulo]="'Unidade ' + unidade?.numeroUnidade"
+  (voltar)="verMoradoresAntigos ? cancelar() : voltar()"
+></app-head>
+<section *ngIf="moradorId == null && !verMoradoresAntigos">
+  <div class="unidade-vazia">
+    <h3 class="title-form">Unidade vazia</h3>
+    <i class="fa-regular fa-face-frown"></i>
+  </div>
+  <div class="unidade-container" *ngIf="!verMoradoresAntigos">
+    <small>Dados unidade</small>
+    <div class="dados-unidade text-list-stats">
+      <span
+        ><strong>Valor do aluguel:</strong>
+        {{ unidade?.valorAluguel | currency : "BRL" }}</span
+      >
+      <span>
+        <strong>Instalação luz:</strong>
+        {{ unidade?.instalacaoLuz }}
+      </span>
+      <span>
+        <strong>Instalação água:</strong>
+        {{ unidade?.instalacaoAgua }}
+      </span>
+    </div>
+  </div>
+  <div class="historico-moradores">
+    <button>
+      <span class="text-link" (click)="verMoradoresAntigos = true"
+        >Ver histórico de moradores</span
+      >
+    </button>
+  </div>
+</section>
+
+<section *ngIf="moradorId != null && !verMoradoresAntigos">
+  <div class="top-container">
+    <div class="first-letter">
+      <span class="text-link">
+        {{ primeiraLetra }}
+      </span>
+    </div>
+    <div class="titles">
+      <small>Morador:</small>
+      <h4 class="text-link">
+        <strong>{{ moradorAtual?.nome }}</strong>
+      </h4>
+      <small class="text-link"> Desde: </small>
+      <h3 class="text-link">
+        {{ moradorAtual?.inicioContrato | date : "dd/MM/yyyy" }}
+      </h3>
+      <small class="text-link">Contrato encerra em:</small>
+      <h3 class="text-link">
+        {{ moradorAtual?.fimContrato | date : "dd/MM/yyyy" }}
+      </h3>
+      <button
+        (click)="modalRenovarContrato()"
+        class="renovar-contrato"
+        *ngIf="contratoPertoDoVencimento"
+      >
+        Renovar contrato
+      </button>
+    </div>
+    <button
+      [routerLink]="['/dashboard/consultar/editar', unidade?.id]"
+      routerLinkActive="router-link-active"
+    >
+      <i class="fa-solid fa-pen"></i>
+    </button>
+  </div>
+
+  <div class="morador-container" *ngIf="moradorId && !verMoradoresAntigos">
+    <small>Dados Morador</small>
+    <div class="dados-morador text-list-stats">
+      <span><strong>CPF:</strong> {{ moradorCpf }}</span>
+      <span><strong>RG:</strong> {{ moradorRg }}</span>
+      <div class="telefone-container">
+        <span><strong>Telefone:</strong> {{ moradorTelefone }}</span>
+        <div class="buttons-container">
+          <button (click)="ligar()"><i class="fa-solid fa-phone"></i></button>
+          <button (click)="whatsapp()">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+        </div>
+      </div>
+      <span
+        ><strong>Dia de pagamento:</strong>
+        {{ moradorAtual?.diaVencimento }}
+      </span>
+    </div>
+  </div>
+  <div class="unidade-container" *ngIf="!verMoradoresAntigos">
+    <small>Dados unidade</small>
+    <div class="dados-unidade text-list-stats">
+      <span
+        ><strong>Valor do aluguel:</strong>
+        {{ unidade?.valorAluguel | currency : "BRL" }}</span
+      >
+      <span>
+        <strong> Data início contrato:</strong>
+        {{ moradorAtual?.inicioContrato | date : "dd/MM/yyyy" }}
+      </span>
+      <span>
+        <strong> Data fim contrato:</strong>
+        {{ moradorAtual?.fimContrato | date : "dd/MM/yyyy" }}
+      </span>
+      <span>
+        <strong>Instalação luz:</strong>
+        {{ unidade?.instalacaoLuz }}
+      </span>
+      <span>
+        <strong>Instalação água:</strong>
+        {{ unidade?.instalacaoAgua }}
+      </span>
+    </div>
+  </div>
+  <div class="historico-moradores">
+    <button>
+      <span class="text-link" (click)="verMoradoresAntigos = true"
+        >Ver histórico de moradores</span
+      >
+    </button>
+  </div>
+</section>
+<div
+  class="actions-container"
+  *ngIf="moradorId != null && !verMoradoresAntigos"
+>
+  <div class="action-button">
+    <a [routerLink]="'/dashboard/consultar/pagamentos/' + moradorId">
+      <button>
+        <i class="fa-solid fa-eye"></i>
+      </button>
+      <span class="text-link">Ver pagamentos</span>
+    </a>
+  </div>
+  <div class="action-button">
+    <a (click)="baixarContrato()">
+      <button>
+        <i class="fa-solid fa-download"></i>
+      </button>
+      <span class="text-link">Baixar contrato</span>
+    </a>
+  </div>
+  <div class="action-button">
+    <a>
+      <button>
+        <i class="fa-solid fa-comments-dollar"></i>
+      </button>
+      <span class="text-link">Enviar boleto</span>
+    </a>
+  </div>
+</div>
+
+<section *ngIf="verMoradoresAntigos">
+  <app-historico-moradores
+    [moradoresAntigos]="moradoresAntigos"
+    *ngIf="verMoradoresAntigos"
+  ></app-historico-moradores>
+</section>
+<div class="esvaziar-unidade" *ngIf="moradorId != null">
+  <app-botao-adicionar
+    texto="Esvaziar unidade"
+    icone="fa-circle-minus"
+    (clicado)="esvaziarUnidade()"
+  ></app-botao-adicionar>
+</div>
+<div class="esvaziar-unidade" *ngIf="moradorId == null">
+  <app-botao-adicionar
+    texto="Excluir unidade"
+    icone="fa-circle-minus"
+    (clicado)="excluirUnidade()"
+  ></app-botao-adicionar>
+</div>
+<app-modal-renovar
+  (fechar)="modalRenovarContrato()"
+  [moradorId]="moradorId"
+  [unidadeId]="unidadeId"
+  *ngIf="renovarContrato"
+></app-modal-renovar>
+<app-modal
+  [mensagem]="mensagemModal"
+  [titulo]="tituloModal"
+  (fechar)="fecharModal()"
+  *ngIf="mostrarModal"
+></app-modal>

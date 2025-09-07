@@ -1,0 +1,218 @@
+<app-head
+  titulo="Cadastrar morador"
+  (voltar)="voltar()"
+  *ngIf="!imovelId"
+></app-head>
+<app-head
+  titulo="Cadastrar morador"
+  *ngIf="imovelId"
+  (voltar)="cancelar()"
+></app-head>
+<section>
+  <div class="aviso-container" *ngIf="imoveis.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <form #formMorador="ngForm" (ngSubmit)="enviarFormulario(formMorador)">
+    <div
+      class="form-control"
+      *ngIf="imovelId == null && imoveis.length > 0 && !loading"
+    >
+      <label for="predio" class="title-form"
+        >Selecione o prédio do morador:</label
+      >
+      <select
+        name="predio"
+        id="predio"
+        [(ngModel)]="imovelId"
+        (change)="selecionarCampos()"
+      >
+        <option [ngValue]="null" selected>Selecione um imóvel</option>
+        <option *ngFor="let imovel of imoveis" [ngValue]="imovel.id">
+          {{ imovel.nomePredio }}
+        </option>
+      </select>
+    </div>
+    <div
+      class="show"
+      *ngIf="unidades.length > 0 && unidadeId == null && !loading"
+    >
+      <div class="form-control">
+        <label for="numeroUnidade" class="title-form"
+          >Selecione a unidade do morador:</label
+        >
+        <select
+          name="numeroUnidade"
+          id="numeroUnidade"
+          [(ngModel)]="unidadeId"
+          (change)="selecionarUnidade()"
+        >
+          <option [value]="null" selected>Selecione uma unidade</option>
+          <option *ngFor="let unidade of unidades" [ngValue]="unidade.id">
+            {{ unidade.numero }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      class="aviso-container"
+      *ngIf="imovelId != null && unidades.length == 0"
+    >
+      <ng-container>
+        <small class="aviso title-form"
+          >Esse imóvel não possui unidades vazias cadastradas</small
+        >
+        <a [routerLink]="['/dashboard/cadastrar-unidade']" class="text-link"
+          >Cadastrar nova unidade</a
+        >
+      </ng-container>
+    </div>
+    <div class="show" *ngIf="imovelId && unidadeId != null && !loading">
+      <div class="formcontainer">
+        <div class="form-control">
+          <label for="predioSelecionado" class="title-form"
+            >Prédio do morador:</label
+          >
+          <input
+            type="text"
+            id="nomePredio"
+            name="nomePredio"
+            [(ngModel)]="nomePredio"
+            readonly
+          />
+        </div>
+        <div class="form-control">
+          <label for="predioSelecionado" class="title-form"
+            >Unidade do morador:</label
+          >
+          <input
+            type="text"
+            name="numeroUnidadeReadOnly"
+            id="numeroUnidade"
+            [(ngModel)]="numeroUnidade"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="morador" class="title-form">Nome do morador:</label>
+          <input type="text" name="nome" id="nome" [(ngModel)]="nome" />
+        </div>
+        <div class="form-control">
+          <label for="diaVencimento" class="title-form">Dia vencimento:</label>
+          <input
+            type="number"
+            min="1"
+            max="31"
+            name="diaVencimento"
+            id="diaVencimento"
+            [(ngModel)]="diaVencimento"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="dataNascimento" class="title-form"
+            >Data de Nascimento:</label
+          >
+          <input
+            type="date"
+            name="dataNascimento"
+            id="dataNascimento"
+            [(ngModel)]="dataNascimento"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="rg" class="title-form">RG do morador:</label>
+          <input
+            type="text"
+            name="rg"
+            id="rg"
+            maxlength="12"
+            [(ngModel)]="rg"
+          />
+        </div>
+        <div class="form-control">
+          <label for="cpf" class="title-form">Digite o CPF do morador:</label>
+          <input
+            type="text"
+            name="cpf"
+            id="cpf"
+            mask="000.000.000-00"
+            maxlength="14"
+            [(ngModel)]="cpf"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="telefone" class="title-form">Telefone:</label>
+          <input
+            type="text"
+            name="telefone"
+            id="telefone"
+            mask="(00) 0 0000-0000"
+            maxlength="16"
+            [(ngModel)]="telefone"
+          />
+        </div>
+        <div class="form-control">
+          <label for="email" class="title-form">E-mail:</label>
+          <input type="text" name="email" id="email" [(ngModel)]="email" />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <label for="dataInicioContrato" class="title-form"
+            >Início contrato:</label
+          >
+          <input
+            type="date"
+            name="dataInicioContrato"
+            id="dataInicioContrato"
+            [(ngModel)]="dataInicioContrato"
+          />
+        </div>
+        <div class="form-control">
+          <label for="dataFimContrato" class="title-form">Fim contrato:</label>
+          <input
+            type="date"
+            name="dataFimContrato"
+            id="dataFimContrato"
+            [(ngModel)]="dataFimContrato"
+          />
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="form-control">
+          <app-botao-login texto="Cadastrar"></app-botao-login>
+        </div>
+        <div class="form-control">
+          <app-botao-cancelar (cancelar)="cancelar()"></app-botao-cancelar>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="background-loading" *ngIf="loading">
+    <div class="modal-loading">
+      <div class="loading" *ngIf="loading">
+        <i class="fa-solid fa-spinner loading"></i>
+      </div>
+    </div>
+  </div>
+  <app-modal
+    *ngIf="mostrarModal"
+    mensagem="{{ mensagemModal }}"
+    titulo="{{ tituloModal }}"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>

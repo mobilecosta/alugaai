@@ -1,0 +1,28 @@
+<app-head
+  titulo="Olá, {{ nomeUsuario }}"
+  [mostrarBotaoVoltar]="false"
+></app-head>
+<section id="dashboard">
+  <div class="unidades-container">
+    <div class="alugadas">
+      <i class="fa-regular fa-face-smile"></i>
+      <small>{{ alugadas.length }} unidades alugadas</small>
+    </div>
+    <div class="vazias">
+      <i class="fa-regular fa-face-frown"></i>
+      <small>{{ vazias.length }} unidades vazias</small>
+    </div>
+  </div>
+  <div class="dash-container">
+    <div class="button-icon" *ngFor="let button of buttons">
+      <a [routerLink]="button.link">
+        <button>
+          <i class="{{ button.icone }}"></i>
+        </button>
+        <span class="text-button-down">
+          {{ button.texto }}
+        </span>
+      </a>
+    </div>
+  </div>
+</section>

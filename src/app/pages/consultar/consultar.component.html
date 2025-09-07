@@ -1,0 +1,126 @@
+<app-head
+  [titulo]="imovelSelecionado ? imovelSelecionadoNome : 'Imóveis'"
+  (voltar)="imovelSelecionado ? cancelar() : voltar()"
+></app-head>
+
+<section>
+  <div class="aviso-container" *ngIf="imoveis.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <div
+    class="imoveis"
+    *ngIf="imovelSelecionado == null && imoveis.length > 0 && !loading"
+  >
+    <h3 class="sub-title">Escolha o prédio:</h3>
+    <div class="list-builds">
+      <ul>
+        <li
+          *ngFor="let imovel of imoveis"
+          (click)="selecionarImovel(imovel.nome)"
+        >
+          <div class="left-container">
+            <div class="first-letter">
+              <span class="text-link">{{
+                imovel.nome.charAt(0).toUpperCase()
+              }}</span>
+            </div>
+            <span class="text-link">{{ imovel.nome.toUpperCase() }}</span>
+          </div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="unidades" *ngIf="imovelSelecionado != null">
+    <div class="actions-container">
+      <app-search
+        placeText="Pesquisar unidade..."
+        (searchChange)="pesquisa = $event; filtrar()"
+      ></app-search>
+      <div class="filters">
+        <button
+          (click)="setFilter('Todas'); filtrar()"
+          [ngClass]="{ active: filter == 'Todas' }"
+        >
+          <span class="text-link">Todas</span>
+        </button>
+        <button
+          (click)="setFilter('Ocupadas'); filtrar()"
+          [ngClass]="{ active: filter == 'Ocupadas' }"
+        >
+          <span class="text-link">Ocupadas</span>
+        </button>
+        <button
+          (click)="setFilter('Desocupadas'); filtrar()"
+          [ngClass]="{ active: filter == 'Desocupadas' }"
+        >
+          <span class="text-link">Vazias</span>
+        </button>
+      </div>
+    </div>
+    <div class="lista-apartamentos">
+      <ul>
+        <li *ngFor="let unidade of filtrados" [routerLink]="[unidade.id]">
+          <div class="left-container">
+            <div class="first-letter">
+              <span class="text-link">{{ unidade.numero }}</span>
+            </div>
+            <div class="dados-container">
+              <h3 class="sub-title">Unidade {{ unidade.numero }}</h3>
+              <span class="nome-morador">{{
+                unidade.morador?.nome || "Unidade vazia"
+              }}</span>
+            </div>
+          </div>
+          <div class="status-container">
+            <div
+              class="alugado"
+              *ngIf="unidade.ocupada === true; else vaziaTemplate"
+            >
+              <i class="fa-regular fa-face-smile"></i>
+              <small class="text-link">Alugado</small>
+            </div>
+            <ng-template #vaziaTemplate>
+              <div class="vazia">
+                <i class="fa-regular fa-face-frown-open"></i>
+                <small class="text-link">Vazia</small>
+              </div>
+            </ng-template>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="unidades-vazio" *ngIf="imovelSelecionado && unidades.length == 0">
+    <span class="sub-title">Este imóvel não possui unidades cadastradas!</span>
+    <a class="text-link" routerLink="/dashboard/cadastrar-unidade"
+      >Cadastrar Unidade</a
+    >
+  </div>
+  <app-botao-adicionar
+    texto="Adicionar imóvel"
+    icone="fa-circle-plus"
+    (clicado)="irPara()"
+    *ngIf="unidades.length < 1"
+  ></app-botao-adicionar>
+  <app-botao-adicionar
+    texto="Adicionar unidade"
+    icone="fa-circle-plus"
+    (clicado)="irParaUnidade()"
+    *ngIf="unidades.length > 0"
+  ></app-botao-adicionar>
+  <div class="background-loading" *ngIf="loading">
+    <div class="modal-loading">
+      <div class="loading" *ngIf="loading">
+        <i class="fa-solid fa-spinner loading"></i>
+      </div>
+    </div>
+  </div>
+</section>

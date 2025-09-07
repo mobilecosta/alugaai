@@ -1,0 +1,14 @@
+<div class="menu">
+  <nav>
+    <ul>
+      <li *ngFor="let btn of buttons" class="text-link">
+        <a *ngIf="btn.texto !== 'Sair'" [routerLink]="btn.link">
+          <i [class]="btn.icone"></i> {{ btn.texto }}
+        </a>
+        <a class="text-link" *ngIf="btn.texto === 'Sair'" (click)="logout()">
+          <i [class]="btn.icone"></i> {{ btn.texto }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

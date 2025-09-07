@@ -1,0 +1,223 @@
+@use "../../../styles.scss" as *;
+
+app-head {
+  position: relative;
+  z-index: 9999;
+}
+
+section {
+  padding: 1rem;
+
+  h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
+
+.list-builds {
+  width: 100vw;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background-color: $color-background;
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+
+      .left-container {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: $color-principal;
+        margin-left: 1rem;
+      }
+
+      .first-letter {
+        width: 30px;
+        height: 30px;
+        background-color: $color-principal-opacity;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      i {
+        margin-right: 1rem;
+        color: $color-principal;
+      }
+    }
+  }
+}
+
+.unidades {
+  .actions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    app-search {
+      width: 100vw;
+    }
+
+    .filters {
+      width: 100vw;
+      display: flex;
+      justify-content: space-around;
+
+      button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: $desocupado;
+        cursor: pointer;
+      }
+
+      .active {
+        border-bottom: solid 1px $color-principal;
+        color: $color-principal;
+      }
+    }
+  }
+
+  .lista-apartamentos {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 0.5rem;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: center;
+      width: 100vw;
+      padding: 1rem;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background-color: $color-principal-opacity;
+      padding: 0.8rem;
+      border-radius: 15px;
+      cursor: pointer;
+
+      .left-container {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: $color-hover;
+
+        .first-letter {
+          width: 45px;
+          height: 45px;
+          background-color: $color-principal-opacity;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+        }
+      }
+
+      .dados-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        h3 {
+          margin: 0;
+        }
+      }
+
+      .status-container {
+        .alugado,
+        .vazia {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          i {
+            font-size: 1.2rem;
+          }
+        }
+
+        .alugado {
+          color: $alugado;
+        }
+
+        .vazia {
+          color: $desocupado;
+        }
+      }
+    }
+  }
+}
+
+.unidades-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $color-principal;
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 767px) {
+  .list-builds {
+    ul {
+      li:hover {
+        background-color: $color-hover;
+        color: #fff;
+
+        .left-container {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .unidades {
+    .actions-container {
+      app-search {
+        width: 90vw;
+      }
+
+      .filters {
+        button:hover {
+          color: $color-hover;
+        }
+      }
+    }
+    .lista-apartamentos {
+      li:hover {
+        transform: scale(1);
+
+        .left-container {
+          color: #fff;
+        }
+
+        .dados-container {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

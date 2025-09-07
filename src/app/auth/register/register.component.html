@@ -1,0 +1,182 @@
+<app-head
+  [mostrarMenu]="false"
+  titulo="Criar conta"
+  (voltar)="voltar()"
+></app-head>
+<section id="login">
+  <img src="assets/alugai.svg" alt="" />
+  <form #formUsuario="ngForm" (ngSubmit)="enviarFormulario(formUsuario)">
+    <div class="form-control">
+      <label for="nome" class="title-form">Nome completo:</label>
+      <input
+        type="text"
+        name="nome"
+        id="nome"
+        name="nome"
+        [(ngModel)]="nome"
+        placeholder="Digite seu nome completo..."
+        required
+      />
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="rg" class="title-form">RG:</label>
+        <input
+          type="text"
+          name="rg"
+          id="rg"
+          maxlength="9"
+          [(ngModel)]="rg"
+          placeholder="Digite seu RG..."
+        />
+      </div>
+      <div class="form-control">
+        <label for="cpf" class="title-form">CPF:</label>
+        <input
+          type="text"
+          name="cpf"
+          id="cpf"
+          [(ngModel)]="cpf"
+          mask="000.000.000-00"
+          placeholder="Digite seu CPF..."
+        />
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="dataNascimento" class="title-form">Data Nascimento:</label>
+        <input
+          type="date"
+          name="dataNascimento"
+          id="dataNascimento"
+          [(ngModel)]="dataNascimento"
+        />
+      </div>
+      <div class="form-control">
+        <label for="cpf" class="title-form">CEP:</label>
+        <input
+          type="text"
+          name="cep"
+          id="cep"
+          [(ngModel)]="cep"
+          (ngModelChange)="buscarCep(cep)"
+          mask="00000-000"
+          placeholder="Digite seu CEP"
+        />
+      </div>
+    </div>
+    <div class="form-control">
+      <label for="endereco" class="title-form">Endereço:</label>
+      <input type="text" name="endereco" id="endereco" [(ngModel)]="endereco" />
+    </div>
+    <div class="form-control">
+      <label for="telefone" class="title-form">Telefone:</label>
+      <input
+        type="tel"
+        name="telefone"
+        id="telefone"
+        [(ngModel)]="telefone"
+        style="width: 100%"
+        mask="(00) 9 0000-0000"
+        placeholder="Digite seu telefone..."
+      />
+    </div>
+    <div class="form-control">
+      <label for="banco" class="title-form">Banco:</label>
+      <select
+        name="banco"
+        id="banco"
+        [(ngModel)]="banco"
+        (ngModelChange)="atualizarBanco()"
+      >
+        <option value="" disabled selected>Selecione um banco</option>
+        Selecione um banco
+
+        <option [value]="banco" *ngFor="let banco of bancos">
+          {{ banco }}
+        </option>
+      </select>
+    </div>
+    <div class="form-container">
+      <div class="form-control">
+        <label for="agencia" class="title-form">Agência bancária</label>
+        <input
+          type="text"
+          name="agencia"
+          id="agencia"
+          mask="0000-0"
+          [(ngModel)]="agencia"
+          placeholder="Nº Agência bancária"
+        />
+      </div>
+      <div class="form-control">
+        <label for="conta" class="title-form">Conta</label>
+        <input
+          type="text"
+          name="conta"
+          id="conta"
+          [(ngModel)]="conta"
+          [mask]="mascaraConta"
+          placeholder="Nº Conta"
+        />
+      </div>
+    </div>
+    <div class="form-control">
+      <label for="pix" class="title-form">Chave pix: </label>
+      <input type="text" name="pix" id="pix" [(ngModel)]="pix" />
+    </div>
+    <div class="form-control">
+      <label for="email" class="title-form">E-mail:</label>
+      <input
+        type="text"
+        aria-label="E-mail"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Digite seu e-mail..."
+        required
+      />
+    </div>
+    <div class="form-control">
+      <label for="senha" class="title-form">Senha:</label>
+      <input
+        type="password"
+        aria-label="Senha"
+        id="senha"
+        [(ngModel)]="senha"
+        name="senha"
+        placeholder="Digite sua senha..."
+        required
+      />
+    </div>
+    <div class="form-control">
+      <label for="senhaConfirmada" class="title-form"
+        >Confirme sua senha:</label
+      >
+      <input
+        type="password"
+        name="senhaConfirmada"
+        id="senhaConfirmada"
+        [(ngModel)]="senhaConfirmada"
+        required
+      />
+    </div>
+
+    <div class="form-control">
+      <app-botao-login texto="Cadastrar"></app-botao-login>
+    </div>
+  </form>
+  <div class="background-loading" *ngIf="loading">
+    <div class="modal-loading">
+      <div class="loading" *ngIf="loading">
+        <i class="fa-solid fa-spinner loading"></i>
+      </div>
+    </div>
+  </div>
+  <app-modal
+    *ngIf="mostrarModal"
+    mensagem="{{ mensagemModal }}"
+    titulo="{{ tituloModal }}"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>

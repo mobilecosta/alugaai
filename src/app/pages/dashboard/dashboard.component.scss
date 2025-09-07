@@ -1,0 +1,110 @@
+// @import "../../../../src/styles.scss";
+@use "../../../../src/styles.scss" as *;
+
+section {
+  min-height: 80vh;
+  min-width: 100vw;
+  display: flex;
+  gap: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .unidades-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    font-family: $links;
+    margin-top: 1rem;
+
+    .alugadas,
+    .vazias {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+
+      i {
+        font-size: 2rem;
+      }
+    }
+
+    .vazias {
+      color: $desocupado;
+    }
+
+    .alugadas {
+      color: $alugado;
+    }
+  }
+
+  .dash-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: flex-start;
+    gap: 4rem 0.5rem;
+    padding: 1rem;
+    max-width: 600px;
+    width: 100%;
+
+    .button-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      i {
+        font-size: 2rem;
+        color: #fff;
+      }
+
+      span {
+        color: $color-principal;
+        font-family: $links;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+      }
+    }
+
+    button {
+      background-color: $color-principal;
+      border: none;
+      outline: none;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 35%;
+      color: #fff;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 767px) {
+  section {
+    .unidades-container {
+      width: 50%;
+    }
+    .dash-container {
+      grid-template-columns: repeat(4, 1fr);
+
+      button:hover {
+        background-color: $color-hover;
+      }
+    }
+  }
+}

@@ -1,0 +1,154 @@
+<app-head
+  titulo="Registrar pagamento"
+  (voltar)="imovelId ? cancelar() : voltar()"
+></app-head>
+<section>
+  <div class="loading" *ngIf="loading">
+    <i class="fa-solid fa-spinner loading"></i>
+  </div>
+  <div class="aviso-container" *ngIf="imoveis.length == 0 && !loading">
+    <ng-container>
+      <small class="aviso title-form"
+        >Você ainda não possui imóveis cadastrados</small
+      >
+      <a [routerLink]="['/dashboard/cadastrar-imovel']" class="text-link"
+        >Cadastrar imóvel</a
+      >
+    </ng-container>
+  </div>
+  <form #formPagamento="ngForm" (ngSubmit)="registrarPagamento(formPagamento)">
+    <div class="form-container">
+      <div
+        class="form-control"
+        *ngIf="
+          imovelId == null &&
+          unidadeId == null &&
+          imoveis.length > 0 &&
+          !loading
+        "
+      >
+        <label for="predio" class="title-form"
+          >Selecione o prédio do morador para registrar o pagamento:</label
+        >
+        <select
+          name="imovelId"
+          id="imovelId"
+          [(ngModel)]="imovelId"
+          (change)="buscarunidades()"
+        >
+          <option [ngValue]="null" selected>Selecione um prédio</option>
+          <option *ngFor="let imovel of imoveis" [value]="imovel.id">
+            {{ imovel.nomePredio }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="aviso-container"
+        *ngIf="unidades.length == 0 && !loading && imovelId != null"
+      >
+        <ng-container>
+          <small class="aviso title-form"
+            >Esse prédio não possui unidades cadastradas</small
+          >
+          <a [routerLink]="['/dashboard/cadastrar-unidade']" class="text-link"
+            >Cadastrar Unidades</a
+          >
+        </ng-container>
+      </div>
+      <div
+        class="form-control"
+        *ngIf="
+          imovelId != null &&
+          unidadeId == null &&
+          !loading &&
+          unidades.length > 0
+        "
+      >
+        <label for="unidade" class="title-form"
+          >Selecione a unidade do morador:</label
+        >
+        <select
+          name="unidadeId"
+          id="unidadeId"
+          [(ngModel)]="unidadeId"
+          (change)="buscarMorador()"
+        >
+          <option [ngValue]="null" selected>Selecione uma unidade:</option>
+          <option *ngFor="let unidade of unidades" [value]="unidade.id">
+            {{ unidade.numeroUnidade }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-control" *ngIf="unidadeId != null && !loading">
+      <label for="morador" class="title-form">Morador selecionado:</label>
+      <input
+        type="text"
+        id="morador"
+        name="moradorId"
+        [value]="moradorNome"
+        readonly
+      />
+    </div>
+    <div class="form-container" *ngIf="valorAluguel && !loading">
+      <div class="form-control">
+        <label for="valorAluguel" class="title-form">Valor: </label>
+        <input type="number" [value]="valor" />
+      </div>
+    </div>
+    <div
+      class="form-container"
+      *ngIf="imovelId != null && unidadeId != null && !loading"
+    >
+      <div class="form-control">
+        <label for="mesPagamento" class="title-form"
+          >Selecione o mês que deseja registrar o pagamento:</label
+        >
+        <select
+          name="dataVencimento"
+          id="dataVencimento"
+          [(ngModel)]="pagamentoId"
+          (ngModelChange)="selecionarPagamento()"
+        >
+          <option [ngValue]="null" selected>
+            Selecione um pagamento para registrar:
+          </option>
+          <option
+            *ngFor="let pagamento of pagamentos"
+            [value]="pagamento.pagamentoId"
+          >
+            {{ pagamento.dataVencimento | date : "dd/MM/yyyy" }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-container" *ngIf="pagamentoId != null">
+      <div class="form-control">
+        <label for="dataPagamento" class="title-form"
+          >Selecione a data de pagamento:</label
+        >
+        <input
+          type="date"
+          name="dataPagamento"
+          id="dataPagamento"
+          [value]="dataPagamento"
+          [(ngModel)]="dataPagamento"
+        />
+      </div>
+    </div>
+    <div class="form-container" *ngIf="dataPagamento != null">
+      <div class="form-control">
+        <app-botao-login texto="Confirmar"></app-botao-login>
+      </div>
+      <div class="form-control">
+        <app-botao-cancelar (cancelar)="cancelar()"></app-botao-cancelar>
+      </div>
+    </div>
+  </form>
+  <app-modal
+    *ngIf="mostrarModal"
+    mensagem="{{ modalMensagem }}"
+    titulo="{{ tituloModal }}"
+    (fechar)="fecharModal()"
+  ></app-modal>
+</section>
