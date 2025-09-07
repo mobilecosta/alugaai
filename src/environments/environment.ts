@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://alugai-be-alugai.up.railway.app',
+  apiUrl: 'http://localhost:3000',
 };
 
 // https://alugai-be-alugai.up.railway.app http://localhost:3000
